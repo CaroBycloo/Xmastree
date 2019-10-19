@@ -1,11 +1,24 @@
 def main():
-    dimension = 10
+    dimension = 20
     height = 4
     width = 5
-    drawTreeBodyPart(6, 0, 4)
-    drawTreeBodyPart(3, 2, 7)
-    drawTreeBodyPart(0, 5, 10)
+    drawTreeBody(dimension)
     drawTreeTrunk(dimension, height, width)
+
+def getLineWidth(lineNumber):
+    return lineNumber * 2 - 1
+
+def getOffset(maxLength, width):
+    return int((maxLength - width) / 2)
+
+def drawTreeBody(dimension):
+    startLine = 0
+    endLine = 4
+    while endLine <= dimension:
+        offset = getOffset(getLineWidth(dimension), getLineWidth(endLine))
+        drawTreeBodyPart(offset, startLine, endLine)
+        startLine = endLine - 2
+        endLine = startLine + 5
 
 def drawTreeBodyPart(offset, startLine, endLine):
     spaces = endLine - 1 - startLine + offset
@@ -18,8 +31,8 @@ def drawTreeBodyPart(offset, startLine, endLine):
         print(line)
 
 def drawTreeTrunk(dimension, height, width):
-    maxLength = dimension * 2 - 1
-    spaces = int((maxLength - width) / 2)
+    maxLength = getLineWidth(dimension)
+    spaces = getOffset(maxLength, width)
     line = (' ' * spaces) + ('+' * width)
     while height > 0:
         print(line)
